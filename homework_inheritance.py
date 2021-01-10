@@ -56,6 +56,9 @@ class Product(Country, Brand, Season):
 		self.product_type = product_type
 		self.product_price = product_price
 		self.product_quantity = product_quantity
+		Country.__init__(self, name, continent)
+		Brand.__init__(self, brand_name, start_date)
+		Season.__init__(self, season_name, average_temperature)
 	def present_product(self):
 		return print(f"this is {product_name} it is {product_type} the price is {product_price} and we have {product_quantity} left.")
 
@@ -65,10 +68,9 @@ class Product(Country, Brand, Season):
 	def quantity_increase(self):
 		product_quantity = product_quantity + 10 
 		return product_quantity
-cl_country = Country()
-cl_brand = Brand()
-cl_season = Season()
-check = Product(cl_country,cl_brand,cl_season)
+
+check = Product("belt", "accesories", 500, 24, "USA", "america", "Gucci", 1965, "winter", 3)
+
 
 
 
