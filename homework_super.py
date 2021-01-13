@@ -169,7 +169,7 @@ def goal_saticfied_houses():
     for i in house_list:
         if i.result == None:
             continue
-        elif len(i.result) <= 32:
+        elif len(i.result) <= 36:
             print(len(i.result))
             counter +=1
     return print(f"{counter} houses have normal temperature.")
