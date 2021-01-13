@@ -3,9 +3,15 @@ class Hotel():
         self.name_hotel = name_hotel 
         self.place = place 
         self.rooms_mid = {"room1": "free", "room2": "free", "room3": "free"}
-        self.mid_room_price = mid_room_price
+        try: 
+            self.mid_room_price = disc_mid
+        except NameError:    
+            self.mid_room_price = mid_room_price
         self.rooms_lux = {"room1": "free", "room2": "free", "room3": "free"}
-        self.lux_room_price = lux_room_price   
+        try:
+            self.lux_room_price = disc_lux
+        except NameError:
+            self.lux_room_price = lux_room_price   
     def presentation_hotel(self):
         return f"the hotel's name is {self.name_hotel}, it is located in {self.place},it has 3 mid rooms and the price for mid room is {self.mid_room_price} it also has 3 luxury rooms and the price is {self.lux_room_price}"
     def booking(self,room_number,room_type):
@@ -34,8 +40,9 @@ class Hotel():
                 counter_ +=1
         return print(f"there are {counter} rooms free and {counter_} lux rooms free right now.")
     def discount_hotel(self,percent):
-        self.mid_room_price = self.mid_room_price / 100 * (100-percent)
-        self.lux_room_price = self.lux_room_price / 100 * (100-percent)
+        global disc_mid , disc_lux 
+        disc_mid = self.mid_room_price / 100 * (100-percent)
+        disc_lux = self.lux_room_price / 100 * (100-percent)
         return self.mid_room_price, self.lux_room_price
 class Taxi(Hotel):
     def __init__(self,name_taxi,car_types,price_for_tour,**kwds):
@@ -50,9 +57,10 @@ class Taxi(Hotel):
     def presentation_taxi(self):
         return f"the name of taxi company is {self.name_taxi} our cars are {self.car_types} and the price for the tour is {self.price_for_tour}" 
     def discount_taxi(self,percent):
-        discount_taxi = 0
+        global discount_taxi 
         discount_taxi = self.price_for_tour / 100 * (100- percent) 
-        return discount_taxi
+        return print(discount_taxi)
+
 class Tour(Taxi,Hotel):
     def __init__(self,name_tour,price_lux, price_mid,**kwds):
         super().__init__(**kwds)
@@ -67,7 +75,23 @@ class Tour(Taxi,Hotel):
 
 check = Tour(name_tour= "Geghard",price_lux = None,price_mid =None, name_taxi = "Ani",car_types = "bmw",price_for_tour = 10000,name_hotel = "Lerane",place = "Geghard",rooms_mid = None, mid_room_price = 10000, rooms_lux=  None, lux_room_price = 20000)
 check.discount_taxi(30)
-check = Tour(name_tour= "Geghard",price_lux = None,price_mid =None, name_taxi = "Ani",car_types = "bmw",price_for_tour = 10000,name_hotel = "Lerane",place = "Geghard",rooms_mid = None, mid_room_price = 10000, rooms_lux=  None, lux_room_price = 20000)
+check.discount_hotel(30)
+after_discount = None
+try:
+    after_discount = discount_taxi
+except: 
+   after_discount = 10000
+after_discount_mid = None
+after_discount_lux = None
+try: 
+    after_discount_mid = disc_mid
+except:
+    after_discount_mid = 10000
+try:
+    after_discount_lux = disc_lux
+except:
+    after_discount_lux = 20000
+check = Tour(name_tour= "Geghard",price_lux = None,price_mid =None, name_taxi = "Ani",car_types = "bmw",price_for_tour = after_discount,name_hotel = "Lerane",place = "Geghard",rooms_mid = None, mid_room_price = 10000, rooms_lux=  None, lux_room_price = 20000)
 print(check.presentation())
 
 
