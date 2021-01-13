@@ -43,7 +43,7 @@ class Hotel():
         global disc_mid , disc_lux 
         disc_mid = self.mid_room_price / 100 * (100-percent)
         disc_lux = self.lux_room_price / 100 * (100-percent)
-        return self.mid_room_price, self.lux_room_price
+
 class Taxi(Hotel):
     def __init__(self,name_taxi,car_types,price_for_tour,**kwds):
         self.name_taxi = name_taxi
@@ -52,14 +52,13 @@ class Taxi(Hotel):
             self.price_for_tour = discount_taxi
         except NameError:
             self.price_for_tour = price_for_tour
-        self.price_for_tour = price_for_tour
         super().__init__(**kwds)
     def presentation_taxi(self):
         return f"the name of taxi company is {self.name_taxi} our cars are {self.car_types} and the price for the tour is {self.price_for_tour}" 
     def discount_taxi(self,percent):
         global discount_taxi 
         discount_taxi = self.price_for_tour / 100 * (100- percent) 
-        return print(discount_taxi)
+       
 
 class Tour(Taxi,Hotel):
     def __init__(self,name_tour,price_lux, price_mid,**kwds):
@@ -76,22 +75,7 @@ class Tour(Taxi,Hotel):
 check = Tour(name_tour= "Geghard",price_lux = None,price_mid =None, name_taxi = "Ani",car_types = "bmw",price_for_tour = 10000,name_hotel = "Lerane",place = "Geghard",rooms_mid = None, mid_room_price = 10000, rooms_lux=  None, lux_room_price = 20000)
 check.discount_taxi(30)
 check.discount_hotel(30)
-after_discount = None
-try:
-    after_discount = discount_taxi
-except: 
-   after_discount = 10000
-after_discount_mid = None
-after_discount_lux = None
-try: 
-    after_discount_mid = disc_mid
-except:
-    after_discount_mid = 10000
-try:
-    after_discount_lux = disc_lux
-except:
-    after_discount_lux = 20000
-check = Tour(name_tour= "Geghard",price_lux = None,price_mid =None, name_taxi = "Ani",car_types = "bmw",price_for_tour = after_discount,name_hotel = "Lerane",place = "Geghard",rooms_mid = None, mid_room_price = 10000, rooms_lux=  None, lux_room_price = 20000)
+check = Tour(name_tour= "Geghard",price_lux = None,price_mid =None, name_taxi = "Ani",car_types = "bmw",price_for_tour = 10000, name_hotel = "Lerane",place = "Geghard",rooms_mid = None, mid_room_price = 10000, rooms_lux=  None, lux_room_price = 20000)
 print(check.presentation())
 
 
