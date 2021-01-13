@@ -1,3 +1,4 @@
+from random import randint
 class Hotel():
     def __init__(self,name_hotel,place,rooms_mid,mid_room_price,rooms_lux,lux_room_price):
         self.name_hotel = name_hotel 
@@ -80,11 +81,82 @@ print(check.presentation())
 
 
 
+class Kitchen():
+    current_temp_kit = randint(-10,45)
+    def __init__(self,goal_temp_kit):
+        self.goal_temp_kit = goal_temp_kit
+    def get_kitchen(self):   
+        return f"the Kitchen temperature is {current_temp_kit}"
+    def set_kitchen(self):
+        if current_temp_kit < self.goal_temp_kit:
+            while current_temp_kit != self.goal_temp_kit:
+                current_temp = current_temp_kit + 1
+                print("heating")
+        else:
+            while current_temp_kit != self.goal_temp_kit:
+                current_temp_kit = current_temp_kit - 1
+                print("cooling")
+
+        return f"the goal temperature was {self.goal_temp_kit} and now the current temperature is {current_temp_kit}"
 
 
+class Livingroom(Kitchen):
+    current_temp_liv = randint(-10,45)
+    def __init__(self,goal_temp_liv, *args):
+        self.goal_temp_liv = goal_temp_liv
+        super().__init__(*args)
+    def get_livingroom(self):         
+        return f"the livingroom temperature is {current_temp_liv}"
+    def set_livingroom(self):
+        if current_temp_liv < self.goal_temp_liv:
+            while current_temp_liv != self.goal_temp_liv:
+                current_temp_liv = current_temp_liv + 1
+                print("heating")
+        else:
+            while current_temp_liv != self.goal_temp_liv:
+                current_temp_liv = current_temp_liv - 1
+                print("cooling")
+
+        return f"the goal temperature was {self.goal_temp_liv} and now the current temperature is {current_temp_liv}"
+class Bedroom(Livingroom):
+    current_temp_bed = randint(-10,45)
+    print(current_temp_bed)
+    def __init__(self,goal_temp_bed, *args):
+        self.goal_temp_bed = goal_temp_bed
+        super().__init__(*args)
+    def get_bedroom(self):
+        return f"the Bedroom temperature is {current_temp_bed}"
+    def set_bedroom(self):
+        if current_temp_bed < self.goal_temp_bed:
+            while current_temp_bed != self.goal_temp_bed:
+                current_temp_bed = current_temp_bed + 1
+                print("heating")
+        else:
+            while current_temp_bed != self.goal_temp_bed:
+                current_temp_bed = current_temp_bed - 1
+                print("cooling")
+
+        return f"the goal temperature was {self.goal_temp_bed} and now the current temperature is {current_temp_bed}"
 
 
+class HouseHeating(Bedroom,Livingroom,Kitchen):
+    def __init__(self,*args):
+        super().__init__(*args)
+    def all_goal(self):
+        try:
+            if current_temp_bed == self.goal_temp_bed and current_temp_kit == self.goal_temp_kit and current_temp_liv == self.goal_temp_liv:
+                print("All goal temperatures are satisfied.")
+            else:
+                print("There are rooms in the house that need to be either cooled or heated.")
+        except:
+            print("There are rooms in the house that need to be either cooled or heated.")
 
+
+house_1 = HouseHeating(24,30,20).get_kitchen()
+
+# house_1.set_livingroom()
+# house_1.set_kitchen()
+# house_1.all_goal()
 
 
 
