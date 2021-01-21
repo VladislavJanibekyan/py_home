@@ -18,25 +18,35 @@ class Image_Jpg(Image_Downloader):
     def download(self):
         count = 0
         for i in self.image_list:
-            link = f"https:{i}"
             try:
-                response_jpeg = requests.get(link)
-            except:
-                response_jpeg = requests.get(web_site_link+i[1:])
-            with open(f"{count}.jpg", "wb") as jpeg_image:
-                jpeg_image.write(response_jpeg.content)
+                ordiary_resp_jpg = requests.get(i)
+                with open(f"{count}.png", "wb") as jpg_image:
+                    jpg_image.write(ordiary_resp_jpg.content)
+            except: 
+                link = f"https:{i}"
+                try:
+                    response_jpeg = requests.get(link)
+                except:
+                    response_jpeg = requests.get(web_site_link+i[1:])
+                    with open(f"{count}.jpg", "wb") as jpeg_image:
+                        jpeg_image.write(response_jpeg.content)
             count +=1
 class Image_Png(Image_Jpg):
     def download(self):
         count_ = 100
         for i in self.image_list:
-            link = f"https:{i}"
             try:
-                response_png = requests.get(link)
+                ordiary_resp_png = requests.get(i)
+                with open(f"{count_}.png", "wb") as png_image:
+                    png_image.write(ordiary_resp_png.content)
             except:
-                response_png = requests.get(web_site_link+i[1:])
-            with open(f"{count_}.png", "wb") as png_image:
-                png_image.write(response_png.content)
+                link = f"https:{i}"
+                try:
+                    response_png = requests.get(link)
+                except:
+                    response_png = requests.get(web_site_link+i[:])
+                    with open(f"{count_}.png", "wb") as png_image:
+                        png_image.write(response_png.content)
             count_ += 1
         super().download()
 
@@ -48,7 +58,7 @@ class Image_Png(Image_Jpg):
 
 
 image = Image_Png()
-web_site_link= "https://xkcd.com/"
+web_site_link= input("give me a link: ")
 response = requests.get(web_site_link)
 
 with open("web_site.txt", "w") as input_file:
