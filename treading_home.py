@@ -21,7 +21,7 @@ creat_file = requests.get(user_input)
 with open("web_site.txt", "w") as file_text:
     print(creat_file.text, file=file_text)
 iamge_link = link_maker("web_site.txt")
-image_dic = {"images": [{count + 1: i} for i in iamge_link[:10]]}
+image_dic = {"images": [{i.split("/")[-1]: i} for i in iamge_link[:10]]}
 with open("link_json.json", "w") as json_file:
     json.dump(image_dic, json_file,indent= True) 
 key_list = []
@@ -34,8 +34,11 @@ for i in final_values[0]:
         key_list.append(j)
         val_dic[j] = b 
 print(len(key_list))
-def downloader(link):   
-    image_bit = requests.get(val_dic[link])
+def downloader(link):
+    try:   
+        image_bit = requests.get(val_dic[link])
+    except:
+        image_bit = requests.get(f"{user_input}{val_dic[link]}")
     if image_bit.status_code == 200 and val_dic[link].endswith("png"):
         with open(f"{link}.png", "wb") as png:
             png.write(image_bit.content)
