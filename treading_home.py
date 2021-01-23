@@ -1,6 +1,7 @@
 import json
 import requests
 import threading
+import concurrent.futures 
 count = 0
 def link_maker(text_file):
     image_list = []
@@ -20,7 +21,7 @@ creat_file = requests.get(user_input)
 with open("web_site.txt", "w") as file_text:
     print(creat_file.text, file=file_text)
 iamge_link = link_maker("web_site.txt")
-image_dic = {"images": [{i.split("/")[-1]: i} for i in iamge_link[:10]]}
+image_dic = {"images": [{count + 1: i} for i in iamge_link[:10]]}
 with open("link_json.json", "w") as json_file:
     json.dump(image_dic, json_file,indent= True) 
 key_list = []
@@ -32,24 +33,25 @@ for i in final_values[0]:
     for j,b in i.items():
         key_list.append(j)
         val_dic[j] = b 
-print(key_list)
-print(val_dic)
-
+print(len(key_list))
 def downloader(link):   
     image_bit = requests.get(val_dic[link])
     if image_bit.status_code == 200 and val_dic[link].endswith("png"):
         with open(f"{link}.png", "wb") as png:
             png.write(image_bit.content)
+            print(f"{link} downloaded")
     else:
         if image_bit.status_code ==200 and val_dic[link].endswith("jpg"):
             with open(f"{link}.jpg", "wb") as jpg:
                 jpg.write(image_bit.content)
+                print(f"{link} downloaded")
 threading_list = []
-
-for i in range(10):
-    slave = threading.Thread(target=downloader, args=(key_list[i],))
-    threading_list.append(slave)
-    slave.start()
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    executor.map(downloader, key_list)
+# for i in range(10):
+#     slave = threading.Thread(target=downloader, args=(key_list[i],))
+#     threading_list.append(slave)
+#     slave.start()
 
 
 
