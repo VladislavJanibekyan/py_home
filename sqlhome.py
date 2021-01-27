@@ -31,11 +31,53 @@ for i in json_a:
     for j in i:
         dic_data[list_data[count]] = j
         count += 1
-    end_list.append(dic_data)
+    end_list.append(dic_data) 
 
 
 with open("db_json.json", "w") as file:
     json.dump(end_list, file, indent=2)
+
+
+
+#### EXTRA ####
+new_tab = """CREATE TABLE IF NOT EXISTS filtered_film(
+                                                film_id integer,
+                                                title text,
+                                                description text,
+                                                release_year integer,
+                                                rate real,
+                                                length integer,
+                                                special_features text
+                                                );
+             """
+curs.execute(new_tab)
+conn.commit()
+new_tab = ''' INSERT INTO filtered_film
+                SELECT *
+                FROM film
+                WHERE release_year > 2010 AND (rate between 3 
+                                                        AND 5)
+                '''
+curs.execute(new_tab)
+conn.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
