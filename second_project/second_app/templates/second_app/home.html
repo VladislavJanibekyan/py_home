@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>home</title>
+<style type="text/css">
+	#box {
+		background-color: green;
+		border-radius: 10px; 
+		text-align: center;
+		text-indent: 50px;
+		text-shadow: 2px 2px rgb(388,234,344);
+		color: rgb(56,234,456);
+		
+		position: relative;
+		margin: 0;
+  	 position: absolute;               /* 2 */
+ 	  top: 40%;                         /* 3 */
+  	 transform: translate(0, -50%) } 
+  	
+  	.wrapper {
+    text-align: center;
+ 
+}
+
+.button {
+	position: absolute;
+	 top: 47%;
+    background-color: lightblue;
+    border-radius: 10px; 
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    width: 150px;
+    font-size: 24px;
+}
+
+</style>
+</head>
+<body>
+	<h1 id = "box">Hello from {{name}} {{surname}}. This is his first website created using Django framework.</h1>
+	
+    <div class="wrapper">
+    	<a href="second_project/second_app/templates/second_app/actors.html">
+    <button class="button">Actors</button>
+     </a>
+</div>
+
+
+</body>
+</html>

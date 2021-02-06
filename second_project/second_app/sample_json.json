@@ -1,0 +1,36 @@
+{"items":[
+    {
+        "name":"Natalie",
+        "surname":"Portman",
+        "age":39,
+        "height": 1.6,
+        "married": true,
+        "movies": ["Black Swan","Thor","V for Vendetta","The Other Boleyn Girl"]
+        
+    },
+    {
+        "name":"Scarlett",
+        "surname":"Johansson",
+        "age":35,
+        "height": 1.6,
+        "married": false,
+        "movies": ["Black Widow","Lucy","The Avengers","The Other Boleyn Girl"]        
+    },
+    {
+        "name":"Sona",
+        "surname":"Axabekyan",
+        "age":45,
+        "height": 1.7,
+        "married": true,
+        "movies": ["siro tever","hreshtaki kyanq@","karmir xndzori veradarc@"]        
+    },
+    {
+        "name":"Sirak",
+        "surname":"Ter-Martirosyan",
+        "age":25,
+        "height": 1.4,
+        "married": false,
+        "movies": ["kanach varderi mayramut@","erkkencaxneri trchun@"]        
+    }
+]
+}

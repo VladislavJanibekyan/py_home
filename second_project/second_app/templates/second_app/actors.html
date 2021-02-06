@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+	<title>actors</title>
+</head>
+<body>
+	<h1>Married Actors</h1>
+	{% for i in inside %}{% if i["married"] == True %}{{i}}
+	{% endif %}
+	{% endfor %}
+	<h1>Single Actors</h1>
+	{% for i in inside %}
+		{% if i["married"] == False %}
+			{{i}}
+		{% endif %}
+	{% endfor %}
+</body>
+</html>
